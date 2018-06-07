@@ -1,0 +1,41 @@
+<!--
+  Generated template for the ConnectionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>connection</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Username</ion-label>
+      <ion-input [(ngModel)]="username" type="text" value=""></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input [(ngModel)]="password"  type="password" value=""></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-label floating style="float: right" (click)="presentAlert()"> <a>Mot de passe oublié ??? </a></ion-label>
+
+  <div padding>
+    <button ion-button color="danger" (click)="closeConnection()">
+      Annuler
+    </button>
+    <button ion-button color="secondary" (click)="connexion()">
+      Valider
+    </button>
+  </div>
+</ion-content>

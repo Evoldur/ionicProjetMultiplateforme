@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Page d'accueil
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-md-4>
+        <button ion-button color="primary">
+          <ion-icon ios="ios-person-add" md="md-person-add" class="icon-btn-accueil"></ion-icon>
+          Inscription
+        </button>
+      </ion-col>
+      <ion-col col-md-4>
+        <button ion-button color="secondary" (click)="presentModal()">
+          <ion-icon ios="ios-person" md="md-person" class="icon-btn-accueil"></ion-icon>
+          Connexion
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
