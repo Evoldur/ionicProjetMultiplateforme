@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, ModalController, NavParams, ViewController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ModalController, NavParams, ViewController, AlertController, NavController } from 'ionic-angular';
+import { AuthService } from '../../services/auth.service';
+import {RegisterPage} from "../register/register";
 
 /**
  * Generated class for the ConnectionPage page.
@@ -9,39 +11,62 @@ import { AlertController } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-connexion',
   templateUrl: 'connexion.html',
 })
 
+
+
 export class ConnexionPage {
 
-  username : string;
-  password : string;
+  loginForm: FormGroup;
+  loginError: string;
 
-  constructor(public modalController: ModalController, public navParams: NavParams, public viewController: ViewController, private alertCtrl: AlertController) {
-  }
+  constructor(
+    public modalController: ModalController,
+    public navParams: NavParams,
+    public viewController: ViewController,
+    private alertCtrl: AlertController,
+    private auth: AuthService,
+    private navController : NavController,
+    formBuilder: FormBuilder
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ConnexionPage');
-  }
-
-  closeConnection(){
-    this.viewController.dismiss();
-  }
-
-  connexion(){
-    console.log("Login : "+this.username)
-    console.log("Password : "+this.password)
-  }
-
-  presentAlert() {
-    let alert = this.alertCtrl.create({
-      title: 'Mot de passe oublié :',
-      message: 'Dommage ! Fallait s\'en rappeler :) ',
-      buttons: ['Fermer']
+  ){
+    this.loginForm = formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.compose([Validators.required])]
     });
-    alert.present();
   }
+
+  login() {
+    let data = this.loginForm.value;
+
+    if (!data.email) {
+      return;
+    }
+
+    let credentials = {
+      email: data.email,
+      password: data.password
+    };
+    this.auth.signInWithEmail(credentials)
+      .then(
+        () => this.navController.setRoot(RegisterPage),
+        error => this.loginError = error.message
+      );
+  }
+
+  loginWithGoogle(){
+    this.auth.signInWithGoogle()
+      .then(
+        () => this.navController.setRoot(RegisterPage),
+        error => this.loginError = error.message
+      );
+  }
+
+  signup(){
+    this.navController.setRoot(RegisterPage);
+  }
+  
 }

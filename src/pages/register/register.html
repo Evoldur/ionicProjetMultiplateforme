@@ -14,5 +14,40 @@
 
 
 <ion-content padding>
-
+  <form [formGroup]="myForm">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input formControlName="email" type="email" value=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Prénom</ion-label>
+        <ion-input formControlName="prenom" type="text" value=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Nom</ion-label>
+        <ion-input formControlName="nom" type="text" value=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Mot de passe</ion-label>
+        <ion-input formControlName="pswd" type="password" value=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Confirmé le mot de passe</ion-label>
+        <ion-input formControlName="confirmPassword" type="password" value=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input formControlName="dateDeNaissance" type="date" value=""></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+  <div padding>
+    <div class="form-error">{{signupError}}</div>
+    <button ion-button color="danger" (click)="closeRegister()">
+      Annuler
+    </button>
+    <button ion-button color="secondary" (click)="signup()">
+      Valider
+    </button>
+  </div>
 </ion-content>

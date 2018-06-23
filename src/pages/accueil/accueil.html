@@ -10,13 +10,13 @@
   <ion-grid>
     <ion-row>
       <ion-col col-md-4>
-        <button ion-button color="primary">
+        <button ion-button color="primary" (click)="presentModalRegister()">
           <ion-icon ios="ios-person-add" md="md-person-add" class="icon-btn-accueil"></ion-icon>
           Inscription
         </button>
       </ion-col>
       <ion-col col-md-4>
-        <button ion-button color="secondary" (click)="presentModal()">
+        <button ion-button color="secondary" (click)="presentModalConnexion()">
           <ion-icon ios="ios-person" md="md-person" class="icon-btn-accueil"></ion-icon>
           Connexion
         </button>
