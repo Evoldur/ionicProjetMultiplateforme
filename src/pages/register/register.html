@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <form [formGroup]="myForm">
+  <form [formGroup]="myForm" (submit)="signup()">
     <ion-list>
       <ion-item>
         <ion-label floating>Email</ion-label>
@@ -40,14 +40,14 @@
         <ion-input formControlName="dateDeNaissance" type="date" value=""></ion-input>
       </ion-item>
     </ion-list>
+    <div padding>
+      <div class="form-error">{{signupError}}</div>
+      <button ion-button color="danger" (click)="closeRegister()">
+        Annuler
+      </button>
+      <button ion-button color="secondary" type="submit" [disabled]="!myForm.valid">
+        Valider
+      </button>
+    </div>
   </form>
-  <div padding>
-    <div class="form-error">{{signupError}}</div>
-    <button ion-button color="danger" (click)="closeRegister()">
-      Annuler
-    </button>
-    <button ion-button color="secondary" (click)="signup()">
-      Valider
-    </button>
-  </div>
 </ion-content>

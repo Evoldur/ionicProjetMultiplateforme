@@ -8,7 +8,7 @@
 
 <ion-content padding>
   <ion-grid>
-    <ion-row>
+    <ion-row *ngIf="!userIsLoged()">
       <ion-col col-md-4>
         <button ion-button color="primary" (click)="presentModalRegister()">
           <ion-icon ios="ios-person-add" md="md-person-add" class="icon-btn-accueil"></ion-icon>
@@ -21,6 +21,12 @@
           Connexion
         </button>
       </ion-col>
+    </ion-row>
+    <ion-row *ngIf="userIsLoged()">
+      <button ion-button color="danger" (click)="deconnexion()">
+        <ion-icon ios="ios-person" md="md-exit" class="icon-btn-accueil"></ion-icon>
+        Deconnexion
+      </button>
     </ion-row>
   </ion-grid>
 </ion-content>

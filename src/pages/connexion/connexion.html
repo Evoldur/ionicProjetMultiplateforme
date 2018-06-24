@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>connection</ion-title>
+    <ion-title>connexion</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -40,7 +40,7 @@
     <div padding-horizontal>
       <div class="form-error">{{loginError}}</div>
 
-      <button ion-button full type="submit" [disabled]="!loginForm.valid">Log in</button>
+      <button ion-button full type="submit" [disabled]="!loginForm.valid">Se connecter</button>
       <div class="login-footer">
         <p>
           <a href="#">Mot de passe oublié?</a>
@@ -61,4 +61,9 @@
       </ion-list>
     </div>
   </form>
+  <div padding-horizontal>
+    <button ion-button full color="danger" (click)="closeRegister()">
+      Annuler
+    </button>
+  </div>
 </ion-content>

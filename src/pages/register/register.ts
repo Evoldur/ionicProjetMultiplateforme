@@ -1,10 +1,19 @@
 import { Component } from '@angular/core';
-import { IonicPage, ModalController, NavParams, ViewController, AlertController } from 'ionic-angular';
+import {
+  IonicPage,
+  ModalController,
+  NavParams,
+  ViewController,
+  AlertController,
+  LoadingController,
+  Loading
+} from 'ionic-angular';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { NavController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { AuthService } from '../../services/auth.service';
-import {s} from "@angular/core/src/render3";
+import { FirestoreProvider} from "../../providers/firestore/firestore";
+import {AccueilPage} from "../accueil/accueil";
 
 /**
  * Generated class for the RegisterPage page.
@@ -21,11 +30,14 @@ export class RegisterPage {
 
   myForm: FormGroup;
   signupError : string;
+  loading: Loading;
   constructor(
     public viewController: ViewController,
     public  alertCtrl: AlertController,
     public formBuilder: FormBuilder,
     private navController : NavController,
+    public firestoreProvider : FirestoreProvider,
+    public loadingCtrl: LoadingController,
     private auth: AuthService) {
     this.myForm = this.formBuilder.group({
       email: new FormControl('', Validators.compose([
@@ -45,6 +57,7 @@ export class RegisterPage {
   }
 
   signup() {
+    this.loading = this.loadingCtrl.create();
     if( this.validateForm()){
       let data = this.myForm.value;
       let credentials = {
@@ -52,7 +65,7 @@ export class RegisterPage {
         password: data.pswd
       };
       this.auth.signUp(credentials).then(
-        () => this.navController.setRoot(HomePage),
+        () => this.createUserOnDataBase(data.email, data.nom, data.prenom, data.dateDeNaissance),
         error => this.signupError = error.message
       );
     }
@@ -73,5 +86,27 @@ export class RegisterPage {
   validateForm(): boolean {
     let data = this.myForm.value;
     return data.pswd == data.confirmPassword;
+  }
+
+  createUserOnDataBase(email: string, prenom: string, nom: string, dateNaissance : string){
+    this.loading.present();
+    this.firestoreProvider
+      .createUser(email, prenom, nom, dateNaissance)
+      .then(
+        () => {
+          this.loading.dismiss().then(() => {
+            this.navController.setRoot(AccueilPage)
+          });
+        },
+        error => {
+          this.loading.dismiss().then(() => {
+            const alert = this.alertCtrl.create({
+              message: error.message,
+              buttons: [{ text: 'Ok', role: 'cancel' }],
+            });
+            alert.present();
+          });
+        }
+      );
   }
 }

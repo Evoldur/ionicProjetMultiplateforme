@@ -12,11 +12,12 @@ import { ConnexionPage } from '../pages/connexion/connexion'
 import { RegisterPage } from '../pages/register/register'
 import {ComponentsModule} from "../components/components.module";
 import { CommonModule } from '@angular/common';
-import {AngularFirestore} from "angularfire2/firestore";
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { firebaseConfig } from '../firebaseconfig';
 import {AuthService} from "../services/auth.service";
+import { FirestoreProvider } from '../providers/firestore/firestore';
+import {AngularFirestore} from "angularfire2/firestore";
 
 
 @NgModule({
@@ -48,7 +49,9 @@ import {AuthService} from "../services/auth.service";
     GooglePlus,
     AngularFireAuth,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthService
+    AuthService,
+    AngularFirestore,
+    FirestoreProvider
   ],
 })
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ModalController } from 'ionic-angular';
 import { ConnexionPage} from "../connexion/connexion";
 import { RegisterPage} from "../register/register";
+import { AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'page-accueil',
@@ -10,7 +11,7 @@ import { RegisterPage} from "../register/register";
 
 export class AccueilPage {
 
-  constructor(public modalCtrl: ModalController) {
+  constructor(public modalCtrl: ModalController, private authService : AuthService) {
 
   }
 
@@ -22,5 +23,13 @@ export class AccueilPage {
   presentModalRegister() {
     const modal = this.modalCtrl.create(RegisterPage);
     modal.present();
+  }
+
+  userIsLoged(): boolean {
+    return this.authService.getEmail() != null;
+  }
+
+  deconnexion(){
+    this.authService.signOut();
   }
 }

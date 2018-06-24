@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ModalController, NavParams, ViewController, AlertController, NavController } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
 import {RegisterPage} from "../register/register";
+import {AccueilPage} from "../accueil/accueil";
 
 /**
  * Generated class for the ConnectionPage page.
@@ -52,7 +53,7 @@ export class ConnexionPage {
     };
     this.auth.signInWithEmail(credentials)
       .then(
-        () => this.navController.setRoot(RegisterPage),
+        () => this.navController.setRoot(AccueilPage),
         error => this.loginError = error.message
       );
   }
@@ -60,7 +61,7 @@ export class ConnexionPage {
   loginWithGoogle(){
     this.auth.signInWithGoogle()
       .then(
-        () => this.navController.setRoot(RegisterPage),
+        () => this.navController.setRoot(AccueilPage),
         error => this.loginError = error.message
       );
   }
@@ -68,5 +69,8 @@ export class ConnexionPage {
   signup(){
     this.navController.setRoot(RegisterPage);
   }
-  
+
+  closeRegister(){
+    this.viewController.dismiss();
+  }
 }
